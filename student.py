@@ -4,7 +4,7 @@ class Student(User):
 
     def __init__(self,name="none", age=0, rol="student", state=True, average=0):
         
-        #Call the parent class constrcutor
+        #Call the parent class constructor
         super().__init__(name, age, rol, state)
 
         self.average = average
