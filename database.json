@@ -1,21 +1,21 @@
 {
     "0": {
-        "name": "Ivan",
-        "age": 21,
+        "name": "Luis",
+        "age": 32,
         "rol": "Estudiante",
         "state": true,
-        "average": 90
+        "average": 88
     },
     "1": {
-        "name": "Jesus",
-        "age": 18,
+        "name": "Brian",
+        "age": 12,
         "rol": "Estudiante",
         "state": true,
         "average": 90
     },
     "2": {
-        "name": "Daniel",
-        "age": 24,
+        "name": "Alvaro Jimenez",
+        "age": 20,
         "rol": "Estudiante",
         "state": true,
         "average": 90
