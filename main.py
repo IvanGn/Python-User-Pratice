@@ -6,44 +6,58 @@ from student import Student
 
 # A function to load students from the dictionary
 def loadStudents():
+    try: 
+        file_path = Path('./database.json')
 
-    file_path = Path('./database.json')
-
-    if file_path.exists() and file_path.stat().st_size >1:
+        if file_path.exists() and file_path.stat().st_size >1:
         #Read from file and parse JSON
-        with open("database.json", 'r') as f:
-        #Deserealize the data  
-            data = json.load(f)
-
-        return data
+            with open("database.json", 'r') as f:
+            #Deserealize the data  
+                data = json.load(f)
+            return data
+    except FileExistsError: 
+         print(f"Error: The file 'database.json' has an error.")
+    except FileNotFoundError: 
+         print(f"Error: The file 'database.json' was not found.")
     
 #This function only list the users with state is True  
 def listAllStudents(): 
+    try: 
         with open("database.json", 'r') as f:
         #Deserealize the data  
             data = json.load(f)
         for studentid, studentData in data.items():
             if studentData["state"] == True:
                 print(f"StudentID: {studentid}, studentData: {studentData}")
+    except FileExistsError: 
+         print(f"Error: The file 'database.json' has an error.")
+    except FileNotFoundError: 
+         print(f"Error: The file 'database.json' was not found.")
 
 
 #Function to create a Database
-def createDatabase(): 
-    #Create a file 
-    with open("database.json", "x") as f:
-        pass
-
+def createDatabase():
+    try:
+        #Create a file 
+        with open("database.json", "x") as f:
+            pass
+    except Exception as e: 
+        print(f"An unexpected error occurred: {e}")
 
 
 # A function to save students in to the dictionary
 def saveStudent(studentCatalog):
 
-    # json.dumps() converts a Python object into a JSON-formatted string
-    json_str = json.dumps(studentCatalog, indent=4)
-
-    #Create the json file 
-    with open("database.json", 'w') as f:
-        f.write(json_str)    
+    try: 
+        # json.dumps() converts a Python object into a JSON-formatted string
+        json_str = json.dumps(studentCatalog, indent=4)
+        #Add content to the json file 
+        with open("database.json", 'a') as f:
+            f.write(json_str)
+    except FileExistsError: 
+         print(f"Error: The file 'database.json' has an error.")
+    except FileNotFoundError: 
+         print(f"Error: The file 'database.json' was not found.")
 
 
 #A function to create a menu
@@ -125,7 +139,7 @@ def deleteUser(studentCatalog, id):
 
 
 
-#A function to create a student
+# A function to create a student
 def createStudent(studentCatalog):
     id = str(len(studentCatalog))
     name = input("Introduzca el nombre del estudiante: ")
@@ -168,18 +182,13 @@ def main ():
 
     #Create a new empty dictionary
     studentCatalog = dict()
-
     file_path = Path('./database.json')
-
     if file_path.exists() and file_path.stat().st_size >1:
-
         #Load data from the json file
         studentCatalog= loadStudents()
             
     else: 
         createDatabase()
-
-
     while True: 
 
         opcion = menu()
